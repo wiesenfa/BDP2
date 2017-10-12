@@ -8,9 +8,12 @@ Shiny app for workflow
 Starts a shiny app in the web browser
 }
 \usage{
-BDP2workflow()
+BDP2workflow(display.mode = "normal")
 }
-%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{display.mode}{display.mode passed to \code{shiny::runApp()}}
+}
+
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
