@@ -58,15 +58,15 @@ knitr::opts_chunk$set(echo = F)
 
 # Chosen Settings
 
-- Uninteresting and target response rate: p0=`r p0`, p1=`r p1`
+- Uninteresting and target response rate: $p_0$=`r p0`, $p_1$=`r p1`
 - Beta prior for futility criterion: Beta(`r shape1F`, `r shape2F`)
 - Beta prior for efficacy criterion: Beta(`r shape1E`, `r shape2E`)
 
 
 - First interim at: `r firstInterim.at`
 - Second and potentially further interims at (selected based on logistic considerations): `r furtherInterims.at`
-- pF=`r pF` and cF=`r cF`, i.e. futility criterion $P(p>$ `r pF` $|Data) <$ `r cF`
-- pE=`r pE` and cE=`r cE`, i.e. efficacy criterion $P(p>$ `r pE` $|Data) \geq$ `r cE`
+- $p_F$=`r pF` and $c_F$=`r cF`, i.e. futility criterion $P(p>$ `r pF` $|Data) <$ `r cF`
+- $p_E$=`r pE` and $c_E$=`r cE`, i.e. efficacy criterion $P(p>$ `r pE` $|Data) \geq$ `r cE`
 
  
 # Figures 
@@ -119,10 +119,10 @@ res=plotBDP2(x="cE",y="PEcall",n=n,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=c
 
 The plot shows power (in red) and type I error (in green) as function of $c_E$.
 
-Threshold $c_E$ selected such that type I error probability can be tolerated and power is maximized.
+Threshold $c_E$ should be selected such that type I error probability can be tolerated and power is maximized.
 
-The selected cE leads to a type I error of `r round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)` at p0=`r p0`,
-and a power of `r round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)` at p1=`r p1`.
+Selected was $c_E$ = `r cE`. This leads to a type I error of `r round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)` at $p_0$=`r p0`,
+and a power of `r round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)` at $p_1$=`r p1`.
 
 
 
