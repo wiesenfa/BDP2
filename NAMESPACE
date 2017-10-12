@@ -1,0 +1,11 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("grDevices", "col2rgb", "rgb")
+importFrom("graphics", "abline", "axis", "legend", "lines", "par",
+           "plot", "polygon")
+importFrom("stats", "dbinom", "pbeta", "pbinom", "qbinom", "rbinom")
+importFrom("shiny", "br", "column", "downloadButton", "downloadHandler", "fluidPage", "fluidRow", "radioButtons","hr","h3","h4", "h5", "incProgress", "mainPanel", "numericInput", "plotOutput", "renderPlot", "renderText", "runApp", "shinyApp", "sidebarLayout", "sidebarPanel", "sliderInput", "tabPanel", "tabsetPanel", "textInput", "textOutput", "titlePanel", "withProgress")
+importFrom("shinyBS", "bsTooltip")
+importFrom("rmarkdown", "render","pdf_document","html_document","word_document")
+
+
+

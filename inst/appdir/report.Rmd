@@ -1,0 +1,216 @@
+---
+title: "BDP2 workflow"
+author: "created by BDP2 package (Annette Kopp-Schneider, Manuel Wiesenfarth)"
+date: "`r Sys.setlocale('LC_TIME', 'English'); format(Sys.time(), '%d %B, %Y')`"
+params:
+  pF: NA
+  pE: NA
+  p0: NA
+  p1: NA
+  shape1F: NA
+  shape2F: NA
+  shape1E: NA
+  shape2E: NA
+  n.range_1: NA
+  n.range_2: NA
+  n.range_4: NA
+  cF: NA
+  cE.range_1: NA
+  cE: NA
+  firstInterim.at: NA
+  furtherInterims.at: NA
+  nfinal: NA
+  nfinal.vec: NA 
+  ptrue.range_1: NA
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+
+
+
+  pF = params$pF
+  pE = params$pE
+  p0 = params$p0
+  p1 = params$p1
+  shape1F = params$shape1F
+  shape2F = params$shape2F
+  shape1E = params$shape1E
+  shape2E = params$shape2E
+  n.range_1 = params$n.range_1
+  n.range_2 = params$n.range_2
+  n.range_4 = params$n.range_4
+  cF = params$cF
+  cE.range_1 = params$cE.range_1
+  cE = params$cE
+  firstInterim.at = params$firstInterim.at
+  furtherInterims.at = params$furtherInterims.at
+  nfinal = params$nfinal
+  nfinal.vec = params$nfinal.vec 
+  ptrue.range_1 = params$ptrue.range_1
+
+```
+
+
+
+
+
+# Chosen Settings
+
+- Uninteresting and target response rate: p0=`r p0`, p1=`r p1`
+- Beta prior for futility criterion: Beta(`r shape1F`, `r shape2F`)
+- Beta prior for efficacy criterion: Beta(`r shape1E`, `r shape2E`)
+
+
+- First interim at: `r firstInterim.at`
+- Second and potentially further interims at (selected based on logistic considerations): `r furtherInterims.at`
+- pF=`r pF` and cF=`r cF`, i.e. futility criterion $P(p>$ `r pF` $|Data) <$ `r cF`
+- pE=`r pE` and cE=`r cE`, i.e. efficacy criterion $P(p>$ `r pE` $|Data) \geq$ `r cE`
+
+ 
+# Figures 
+
+## 2a. Select timing of first interim analysis and futility stopping criterion, cF, such that the trial stops after a run of treatment failures
+
+```{r,fig.width=10 }
+n.range_1=as.numeric(n.range_1)
+par(mfrow=c(1,2))
+plotBDP2(x="n",y="Prob0Successes",n=c(n.range_1[1],n.range_1[2]),p0=p0,p1=p1,cex.main=.9)
+plotBDP2(x="n",y="PostProb0or1Successes",n=c(n.range_1[1],n.range_1[2]),pF=pF,shape1F=shape1F,shape2F=shape2F,cex.main=.9)
+
+```
+
+
+The left figure shows true (for $p_{true}=p_0$, in green) and false (for $p_{true}=p_1$, in red) stopping probability. 
+False stopping probability should be bounded to an acceptable limit, e.g. 5%. 
+Any n with false stopping probability below this limit can be used as timing of first interim. 
+The actual choice may be guided by logistical considerations.
+
+From left figure, false stopping probability was evaluated and first interim chosen to be performed at `r firstInterim.at` patients.
+
+From right figure read P(p>$p_F$| 0 of n), in red, and P(p>$p_F$| 1 of n), in green, for the selected timing of first interim, i.e. for `r firstInterim.at` patients. 
+The value of $c_F$ can be chosen anywhere between these two numbers and 
+will ensure that the trial is stopped at first interim if no successes have been observed so far.
+
+From right figure $c_F$ was chosen: $c_F$ = `r cF`.
+
+Note: If it is not intended to stop the trial only after a run of treatment failures but also in case that 
+a low number of successes is observed, the timing of first interim and $c_F$ can be chosen on basis of the 
+operating characteristics and expected patient number without evaluating these plots. 
+
+
+Timings of second and potentially further interims are selected based on logistical considerations. The choice was to perform (a) further potential interim(s) at `r furtherInterims.at` patients.
+           
+## 3. Selecting cE
+
+```{r,fig.width=10}
+cE.range_1=as.numeric(cE.range_1)
+cEaccuracy=0.001
+cEvec=seq(from=cE.range_1[1],to=cE.range_1[2],by=cEaccuracy)
+interims.at= c(firstInterim.at,as.numeric(unlist(strsplit(furtherInterims.at," "))))
+n=nfinal
+
+res=plotBDP2(x="cE",y="PEcall",n=n,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cEvec,p0=p0,p1=p1,
+             shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"),cex.sub=.8)
+ 
+
+```
+
+The plot shows power (in red) and type I error (in green) as function of $c_E$.
+
+Threshold $c_E$ selected such that type I error probability can be tolerated and power is maximized.
+
+The selected cE leads to a type I error of `r round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)` at p0=`r p0`,
+and a power of `r round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)` at p1=`r p1`.
+
+
+
+
+## 4. Operating characteristics
+
+```{r,fig.width=10}
+  n.range_2=as.numeric(n.range_2)
+  nvec=c(n.range_2[1]:n.range_2[2])
+  interims.at= c(firstInterim.at,as.numeric(unlist(strsplit(furtherInterims.at," "))))
+  
+  par(mfrow=c(1,2))
+  plotBDP2(x="n",y="PFstopEcall",n=nvec,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=p0,
+                   shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E, progress=T,
+         main="Type I error and probability of true stopping \nfor varying n",cex.main=0.8,cex.sub=.7)
+  plotBDP2(x="n",y="PFstopEcall",n=nvec,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=p1,
+                   shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,progress=T,
+         main="Power and probability of false stopping \nfor varying n",cex.main=0.8,cex.sub=.7)
+
+```
+
+The left plot shows the probabilities for declaration of efficacy and cumulative stopping for futility at final for $p_{true}=p_0$. 
+The right plot shows the same quantities for $p_{true}=p_1$. 
+ 
+## 5. Power function for multiple sample sizes at final analysis and corresponding expected number of patients in the trial as a function of ptrue
+
+```{r,fig.width=10}
+nvec= as.numeric(unlist(strsplit(nfinal.vec," ")))
+pvec=seq(ptrue.range_1[1],ptrue.range_1[2],by=.01)
+interims.at= c(firstInterim.at,as.numeric(unlist(strsplit(furtherInterims.at," "))))
+
+par(mfrow=c(1,2))
+n=nvec[1]
+vn.int=interims.at[interims.at<n]
+plotBDP2(x="ptrue",y="PEcall",n=n,interim.at=vn.int,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=pvec,
+                  shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=1,cex.sub=.7)
+abline(v=p0,col="grey")
+abline(v=p1,col="grey")
+
+for (jj in 2:length(nvec)) {
+  n=nvec[jj]
+  vn.int=interims.at[interims.at<n]
+  plotBDP2(x="ptrue",y="PEcall",n=n,interim.at=vn.int,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=pvec,
+                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,add=TRUE,col=jj)
+}
+legend("bottomright",title="final analysis at ",legend=nvec,text.col = 1:length(nvec),cex=.8)
+
+n=nvec[1]
+vn.int=interims.at[interims.at<n]
+plotBDP2(x="ptrue",y="ExpectedNumber",n=n,interim.at=vn.int,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=pvec,shape1F=shape1F,shape2F=shape2F,col=1,ylim=c(0,max(nvec)),cex.sub=.7)
+abline(v=p0,col="grey")
+abline(v=p1,col="grey")
+
+for (jj in 2:length(nvec)) {
+  n=nvec[jj]
+  vn.int=interims.at[interims.at<n]
+  plotBDP2(x="ptrue",y="ExpectedNumber",n=n,interim.at=vn.int,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=pvec,shape1F=shape1F,shape2F=shape2F,col=jj,add=TRUE)
+}
+legend("bottomright",title="final analysis at ",legend=nvec,text.col = 1:length(nvec),cex=.8)
+
+```
+
+
+## 6. Decision boundaries for futility and efficacy (Design specification for clinician) and check for contradictory results
+
+
+```{r, fig.width=10}
+vn.int=firstInterim.at
+n=n.range_4[2]
+plotBDP2(x="n",y="bFbE",n=n,pF=pF,cF=cF,pE=pE,cE=cE,
+          shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("red","green"),cex.sub=.8)
+
+```
+
+The plot shows the decision boundaries for the selected trial design in terms of number of successes per number of enrolled patients.
+
+The trial is stopped for futility if the observed number of successes among enrolled patients is in the red part of the plot, including the boundary. 
+Efficacy can be called if the observed number of successes among patients at final analysis is in the green part of the plot, including the boundary.
+
+The range of final sample size should be increased to the maximal feasible number to check for contradictory results, i.e. for overlap between red and green areas.
+
+
+
+
+
+
+
+
+
+
+
