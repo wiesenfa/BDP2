@@ -32,6 +32,7 @@ server <- function(input, output) {
 
       plotBDP2(x="cE",y="PEcall",n=n,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cEvec,p0=p0,p1=p1,
                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"),cex.lab=1.4)
+      abline(v=input$cE,col="gray",lty="dashed")
     })
 
     output$OCs.selected.cE <- renderText({
