@@ -1,4 +1,4 @@
-plotPEcallVScE=function(n,vn.int,pF,cF,pE,cEvec,p0=NULL,p1=NULL,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col0="red",col1="green",...){
+plotPEcallVScE=function(n,vn.int,pF,cF,pE,cEvec,p0=NULL,p1=NULL,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col0="red",col1="green",cex.legend=1,...){
   if (is.null(shape1E)) shape1E=shape1F
   if (is.null(shape2E)) shape2E=shape2F
 
@@ -18,7 +18,7 @@ plotPEcallVScE=function(n,vn.int,pF,cF,pE,cEvec,p0=NULL,p1=NULL,shape1F,shape2F,
         col=col0,lwd=2)
   lines(as.numeric(colnames(pEcall_p1$summary)),pEcall_p1$summary[length(vn.int)+1,],
         col=col1,lwd=2)
-  legend("bottomleft",legend=c(paste("ptrue=",p0),paste("ptrue=",p1)),lty=1,col = c(col0,col1))
+  legend("bottomleft",legend=c(paste("ptrue=",p0),paste("ptrue=",p1)),lty=1,col = c(col0,col1),cex=par()$cex*cex.legend)
   invisible(list(pEcall_p0=pEcall_p0,pEcall_p1=pEcall_p1,
                  x.p0=as.numeric(colnames(pEcall_p0$summary)),y.p0=pEcall_p0$summary[length(vn.int)+1,],
                  x.p1=as.numeric(colnames(pEcall_p1$summary)),y.p1=pEcall_p1$summary[length(vn.int)+1,]

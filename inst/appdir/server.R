@@ -1,4 +1,4 @@
-server <- function(input, output) {
+function(input, output) {
     output$ProbSuccesses <- renderPlot({
       p0=input$p0
       p1=input$p1
@@ -102,7 +102,7 @@ server <- function(input, output) {
                main="Type I error and probability of true stopping for varying n",cex.lab=1.4)
       plotBDP2(x="n",y="PFstopEcall",n=nvec,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=p1,
                          shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,progress=T,
-               main="Power and probability of false stopping for varying n",cex.lab=1.4)
+               main="Power and probability of false stopping for varying n",cex.lab=1.4,cex.legend = .2)
     })
 
 

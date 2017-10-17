@@ -10,7 +10,7 @@ plotBDP2=function(
                     p0,p1,
                     shape1F,shape2F,shape1E=NULL,shape2E=NULL,
                     col=c("green","red"), #could be vector or scalar
-                    add=FALSE,progress=FALSE,...){
+                    add=FALSE,progress=FALSE,cex.legend=1,...){
 
 
   x=match.arg(x)
@@ -18,11 +18,11 @@ plotBDP2=function(
   switch(x,
          n= switch(y,
                   Prob0Successes=  plotProb0SuccessesVSn(nmin=n[1],nmax=n[length(n)],
-                                                          p0=p0,p1=p1,...),
+                                                          p0=p0,p1=p1,cex.legend=cex.legend,...),
 
                   PostProb0or1Successes=  plotPostProb0or1SuccessesVSn(nmin=n[1],nmax=n[length(n)],
                                                                       pF=pF,
-                                                                      shape1F=shape1F,shape2F=shape2F,...),
+                                                                      shape1F=shape1F,shape2F=shape2F,cex.legend=cex.legend,...),
                   bFbE=   plotbFbEVSn(n=n,
                                        pF=pF,cF=cF,pE=pE,cE=cE,
                                        shape1F,shape2F,shape1E,shape2E,
@@ -31,12 +31,12 @@ plotBDP2=function(
                                                      pF=pF,cF=cF,pE=pE,cE=cE,
                                                      p0=p0,p1=p1,
                                                      shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                     col1=col[1],col2=col[2],...),
+                                                     col1=col[1],col2=col[2],cex.legend=cex.legend,...),
                   PFstopEcall=  plotPFstopEcallVSn(nvec=n,vn.int=interim.at,
                                                    pF=pF,cF=cF,pE=pE,cE=cE,
                                                    p=ptrue,
                                                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                   col1=col[1],col2=col[2],progress=progress,...)
+                                                   col1=col[1],col2=col[2],progress=progress,cex.legend=cex.legend,...)
                ),
          ptrue= switch(y,
                          PEcall=  plotPEcallVSptrue(n=n,vn.int=interim.at,    #vielleicht ProbCallEfficacy statt PEcall
@@ -60,14 +60,14 @@ plotBDP2=function(
                                                        pF=pF,cF=cF,pE=pE,cEvec=cE,
                                                        p0=p0,p1=p1,
                                                        shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                       col0=col[1],col1=col[2],...)
+                                                       col0=col[1],col1=col[2],cex.legend=cex.legend,...)
                     ),
           cF= switch(y,
                     PFstop= plotPFstopVScF(n=n,vn.int=interim.at,
                                            pF=pF,cFvec=cF,
                                            p0=p0,p1=p1,
                                            shape1=shape1F,shape2=shape2F,
-                                           col1=col[1],col2=col[2]),...)
+                                           col1=col[1],col2=col[2]),cex.legend=cex.legend,...)
   )
 
 

@@ -68,6 +68,7 @@ character string specifying what is given by the y axis
   \item{col}{line color, for some plots vector of length 2.}
   \item{add}{add line to existing plot. Only supported if \code{x=="ptrue"}}
   \item{progress}{only used by shiny app}
+  \item{cex.legend}{size of legend text relative to cex}
   \item{\dots}{additional arguments passed to \code{plot.default()}}
 }
 \details{

@@ -1,4 +1,4 @@
-plotPEcall_p0_p1VSn=function(nvec,vn.int,pF,cF,pE,cE,p0,p1,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col1="green",col2="red",...){
+plotPEcall_p0_p1VSn=function(nvec,vn.int,pF,cF,pE,cE,p0,p1,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col1="green",col2="red",cex.legend=1,...){
   if (is.null(shape1E)) shape1E=shape1F
   if (is.null(shape2E)) shape2E=shape2F
 
@@ -35,7 +35,7 @@ plotPEcall_p0_p1VSn=function(nvec,vn.int,pF,cF,pE,cE,p0,p1,shape1F,shape2F,shape
        ylim=c(0,1),pch=20,col=1,xlim=c(min(nvec),max(nvec)), type="n",las=1,...)
   lines(as.numeric(names(effp0)),effp0,lwd=2, col=col2)
   lines(as.numeric(names(effp1)),effp1,lwd=2, col=col1)
-  legend("topleft",legend=c("Efficacy at final for ptrue=p0","Efficacy at final for ptrue=p1" ),lty=1,col = c(col2,col1))
+  legend("topleft",legend=c("Efficacy at final for ptrue=p0","Efficacy at final for ptrue=p1" ),lty=1,col = c(col2,col1),cex=par()$cex*cex.legend)
 
   invisible(res)
 }

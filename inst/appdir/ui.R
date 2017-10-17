@@ -1,6 +1,9 @@
-  ui <- fluidPage(
+library(shinyBS)
+library(BDP2)
+
+fluidPage(
     # oben  
-      titlePanel("BDP2 workflow"),
+      titlePanel(paste0("BDP2 workflow (version ",packageVersion('BDP2'),")")),
       h3("Workflow to determine design parameters for a multi-stage single arm phase II trial with binary endpoint. Declaration of efficacy and futility is based on Bayesian posterior distribution."),
       br(),
       h4("1. Common settings: Select pF, pE and the prior distribution for the response rate"),#br(),
