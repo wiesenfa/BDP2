@@ -11,7 +11,9 @@ function(input, output) {
       plotBDP2(x="n",y="Prob0Successes",n=c(n.range_1[1],n.range_1[2]),p0=p0,p1=p1)
       plotBDP2(x="n",y="PostProb0or1Successes",n=c(n.range_1[1],n.range_1[2]),pF=pF,shape1F=shape1F,shape2F=shape2F)
     })
-cE.vs.PEcall= reactive({
+    
+    
+    cE.vs.PEcall= reactive({
       pF=input$pF
       pE=input$pE
       p0=input$p0
@@ -33,7 +35,9 @@ cE.vs.PEcall= reactive({
                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"),cex.lab=1.4,show=FALSE)
       return(res)
   
-})
+    })
+    
+    
     output$cE.vs.PEcall <- renderPlot({
       plot.cE_vs_pEcall(cE.vs.PEcall())
       abline(v=input$cE,col="gray",lty="dashed")
@@ -42,8 +46,8 @@ cE.vs.PEcall= reactive({
     output$OCs.selected.cE <- renderText({
       cE=input$cE
       res=cE.vs.PEcall()
-      paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)," at p0=",p0,
-             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)," at p1=",p1,".")
+      paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)," at p0=",input$p0,
+             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)," at p1=",input$p1,".")
 
     })
 
