@@ -13,9 +13,10 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
                         shape1=shape1E,shape2=shape2E)
       v.critF <- critEF(n=n,  vn.int=vn.int1, crit=cF, pE=pE,pF=pF,  EF="F",
                         shape1=shape1F,shape2=shape2F)
-
-      res=c(pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)$P.effic[length(vn.int1)+1],
-            pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)$P.futil.cum[length(vn.int1)+1])
+      
+      temp=pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)
+      res=c(temp$P.effic[length(vn.int1)+1],
+            temp$P.futil.cum[length(vn.int1)+1])
       res
 
     })
@@ -27,9 +28,10 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
                         shape1=shape1E,shape2=shape2E)
       v.critF <- critEF(n=n,  vn.int=vn.int1, crit=cF, pE=pE,pF=pF,  EF="F",
                         shape1=shape1F,shape2=shape2F)
-
-      res=c(pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)$P.effic[length(vn.int1)+1],
-            pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)$P.futil.cum[length(vn.int1)+1])
+      
+      temp=pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)
+      res=c(temp$P.effic[length(vn.int1)+1],
+            temp$P.futil.cum[length(vn.int1)+1])
       res
 
     })
@@ -41,14 +43,16 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
   fut=sapply(out, function(x) x[2])
   res=list(eff=eff,fut=fut)
 
-  plot(as.numeric(names(eff)),eff,xlab="final sample size (n)",
-       ylab="Probability",
-       sub=paste0("Interim analyses at (",paste(vn.int,collapse=", "),"),  ptrue=",p,", pF=",pF,", cF=",cF,", pE =",pE,", cE=",cE ),
-       ylim=c(0,1),xlim=c(min(nvec),max(nvec)), type="n",las=1,...)
-  abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
-  lines(as.numeric(names(eff)),eff,lwd=2, col=col1)
-  lines(as.numeric(names(fut)),fut,lwd=2, col=col2)
-  legend("topleft",legend=c("Efficacy at Final","Cumulative Futility at Final" ),lty=1,col = c(col1,col2),cex=par()$cex*cex.legend)
+  if (show){
+    plot(as.numeric(names(eff)),eff,xlab="final sample size (n)",
+         ylab="Probability",
+         sub=paste0("Interim analyses at (",paste(vn.int,collapse=", "),"),  ptrue=",p,", pF=",pF,", cF=",cF,", pE =",pE,", cE=",cE ),
+         ylim=c(0,1),xlim=c(min(nvec),max(nvec)), type="n",las=1,...)
+    abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
+    lines(as.numeric(names(eff)),eff,lwd=2, col=col1)
+    lines(as.numeric(names(fut)),fut,lwd=2, col=col2)
+    legend("topleft",legend=c("Efficacy at Final","Cumulative Futility at Final" ),lty=1,col = c(col1,col2),cex=par()$cex*cex.legend)
+  }
 
   class(res)="n_vs_pFstopEcall"
   invisible(res)
