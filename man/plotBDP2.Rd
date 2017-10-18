@@ -16,7 +16,7 @@ plotBDP2(x = c("n", "ptrue", "cE", "cF"),
           n, interim.at, ptrue, 
           pF, cF, pE, cE, p0, p1, 
           shape1F, shape2F, shape1E = NULL, shape2E = NULL, 
-          col = c("green", "red"), add = FALSE, progress = FALSE, ...)
+          col = c("green", "red"),cex.legend=1, add = FALSE, show=TRUE, progress = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -67,6 +67,7 @@ character string specifying what is given by the y axis
   \item{shape2E}{second parameter of the Beta prior for efficacy analysis }
   \item{col}{line color, for some plots vector of length 2.}
   \item{add}{add line to existing plot. Only supported if \code{x=="ptrue"}}
+  \item{show}{show plot (otherwise computed objects are invisibly returned)}
   \item{progress}{only used by shiny app}
   \item{cex.legend}{size of legend text relative to cex}
   \item{\dots}{additional arguments passed to \code{plot.default()}}

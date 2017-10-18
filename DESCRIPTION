@@ -1,7 +1,7 @@
 Package: BDP2
 Type: Package
 Title: Bayesian adaptive designs for phase II trials with binary endpoint
-Version: 0.0.23
+Version: 0.0.24
 Author: Annette Kopp-Schneider, Manuel Wiesenfarth, Ulrich Abel
 Maintainer: Manuel Wiesenfarth <m.wiesenfarth@dkfz.de>
 Description: Bayesian adaptive designs for phase II trials with binary endpoint. 

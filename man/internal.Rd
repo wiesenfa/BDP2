@@ -25,6 +25,7 @@
 \alias{plotExpectedNumberVSptrue}
 \alias{plotPEcall_p0_p1VSn}
 \alias{plotPEcallVScE}
+\alias{plot.cE_vs_pEcall}
 \alias{plotPEcallVSptrue}
 \alias{plotPFstopEcallVSn}
 \alias{plotPFstopVScF}
