@@ -10,11 +10,12 @@ plotBDP2=function(
                     p0,p1,
                     shape1F,shape2F,shape1E=NULL,shape2E=NULL,
                     col=c("green","red"), #could be vector or scalar
-                    add=FALSE,progress=FALSE,cex.legend=1,...){
+                    cex.legend=1,add=FALSE,show=TRUE,progress=FALSE,...){
 
-
+  args=as.list(match.call(expand.dots = FALSE))
   x=match.arg(x)
   y=match.arg(y)
+  
   switch(x,
          n= switch(y,
                   Prob0Successes=  plotProb0SuccessesVSn(nmin=n[1],nmax=n[length(n)],
@@ -31,36 +32,36 @@ plotBDP2=function(
                                                      pF=pF,cF=cF,pE=pE,cE=cE,
                                                      p0=p0,p1=p1,
                                                      shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                     col1=col[1],col2=col[2],cex.legend=cex.legend,...),
+                                                     col1=col[1],col2=col[2],cex.legend=cex.legend,show=show,...),
                   PFstopEcall=  plotPFstopEcallVSn(nvec=n,vn.int=interim.at,
                                                    pF=pF,cF=cF,pE=pE,cE=cE,
                                                    p=ptrue,
                                                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                   col1=col[1],col2=col[2],progress=progress,cex.legend=cex.legend,...)
+                                                   col1=col[1],col2=col[2],progress=progress,cex.legend=cex.legend,show=show,...)
                ),
          ptrue= switch(y,
                          PEcall=  plotPEcallVSptrue(n=n,vn.int=interim.at,    #vielleicht ProbCallEfficacy statt PEcall
                                                pF=pF,cF=cF,pE=pE,cE=cE,
                                                pvec=ptrue,
                                                shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                               col=col,add=add,...),
+                                               col=col,add=add,show=show,...),
                         ExpectedNumber= plotExpectedNumberVSptrue(n=n,vn.int=interim.at,
                                                    pF=pF,cF=cF,pE=pE,cE=cE,
                                                    pvec=ptrue,
                                                    shape1F=shape1F,shape2F=shape2F,
-                                                   col=col,add=add,...),
+                                                   col=col,add=add,show=show,...),
                         PFstop= plotPFstopVSptrue(n=n,vn.int=interim.at,
                                              pF=pF,cF=cF,
                                              pvec=ptrue,
                                              shape1=shape1F,shape2=shape2F,
-                                             col=col,add=add,...)
+                                             col=col,add=add,show=show,...)
                       ),
           cE= switch(y,
-                    PEcall= plotPEcallVScE(n=n,vn.int=interim.at,   #vielleicht ProbCallEfficacy statt PEcall
+                    PEcall= do.call("plotPEcallVScE",c(list(n=n,vn.int=interim.at,   #vielleicht ProbCallEfficacy statt PEcall
                                                        pF=pF,cF=cF,pE=pE,cEvec=cE,
                                                        p0=p0,p1=p1,
                                                        shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
-                                                       col0=col[1],col1=col[2],cex.legend=cex.legend,...)
+                                                       col0=col[1],col1=col[2],cex.legend=cex.legend,show=show),args$...))
                     ),
           cF= switch(y,
                     PFstop= plotPFstopVScF(n=n,vn.int=interim.at,
