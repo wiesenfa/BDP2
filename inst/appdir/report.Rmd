@@ -1,6 +1,6 @@
 ---
 title: "BDP2 workflow"
-author: "created by BDP2 package version `r packageVersion('BDP2')` (Annette Kopp-Schneider, Manuel Wiesenfarth)"
+author: "created by BDP2 package version `r packageVersion('BDP2')` (Annette Kopp-Schneider, Manuel Wiesenfarth, Division of Biostatistics, German Cancer Research Center (DKFZ), Heidelberg, Germany)"
 date: "`r Sys.setlocale('LC_TIME', 'English'); format(Sys.time(), '%d %B, %Y')`"
 params:
   pF: NA

@@ -90,7 +90,7 @@ function(input, output) {
                main="Type I error and probability of true stopping for varying n",cex.lab=1.4)
       plotBDP2(x="n",y="PFstopEcall",n=nvec,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=p1,
                          shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,progress=T,
-               main="Power and probability of false stopping for varying n",cex.lab=1.4,cex.legend = .2)
+               main="Power and probability of false stopping for varying n",cex.lab=1.4,cex.legend = 1)
     })
 
 
@@ -158,7 +158,8 @@ function(input, output) {
       # For PDF output, change this to "report.pdf"
        filename = function() {
       paste('report', sep = '.', switch(
-        input$format, PDF = 'pdf', HTML = 'html', Word = 'docx'
+        input$format, #PDF = 'pdf', 
+        HTML = 'html', Word = 'docx'
       ))
 },
       content = function(file) {
@@ -201,7 +202,8 @@ function(input, output) {
         # )
         out <- render(tempReport, switch(
         input$format,
-        PDF = pdf_document(), HTML = html_document(), Word = word_document()
+        #PDF = pdf_document(), 
+        HTML = html_document(), Word = word_document()
       ),params = params,
           envir = new.env(parent = globalenv())
       )
