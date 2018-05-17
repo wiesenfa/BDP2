@@ -140,8 +140,8 @@ The plot shows power (in red) and type I error (in green) as function of $c_E$.
 
 Threshold $c_E$ should be selected such that type I error probability can be tolerated and power is maximized.
 
-Selected was $c_E$ = `r cE`. This leads to a type I error of `r round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)` at $p_0$=`r p0`,
-and a power of `r round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)` at $p_1$=`r p1`.
+Selected was $c_E$ = `r cE`. This leads to a type I error of `r round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],3)` at $p_0$=`r p0`,
+and a power of `r round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],3)` at $p_1$=`r p1`.
 
 
 

@@ -46,8 +46,8 @@ function(input, output) {
     output$OCs.selected.cE <- renderText({
       cE=input$cE
       res=cE.vs.PEcall()
-      paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)," at p0=",input$p0,
-             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)," at p1=",input$p1,".")
+      paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],3)," at p0=",input$p0,
+             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],3)," at p1=",input$p1,".")
 
     })
 
@@ -158,8 +158,7 @@ function(input, output) {
       # For PDF output, change this to "report.pdf"
        filename = function() {
       paste('report', sep = '.', switch(
-        input$format, #PDF = 'pdf', 
-        HTML = 'html', Word = 'docx'
+        input$format, PDF = 'pdf', HTML = 'html', Word = 'docx'
       ))
 },
       content = function(file) {
@@ -202,8 +201,7 @@ function(input, output) {
         # )
         out <- render(tempReport, switch(
         input$format,
-        #PDF = pdf_document(), 
-        HTML = html_document(), Word = word_document()
+        PDF = pdf_document(), HTML = html_document(), Word = word_document()
       ),params = params,
           envir = new.env(parent = globalenv())
       )

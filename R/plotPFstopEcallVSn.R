@@ -48,10 +48,10 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
          ylab="Probability",
          sub=paste0("Interim analyses at (",paste(vn.int,collapse=", "),"),  ptrue=",p,", pF=",pF,", cF=",cF,", pE =",pE,", cE=",cE ),
          ylim=c(0,1),xlim=c(min(nvec),max(nvec)), type="n",las=1,...)
-    abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
-    lines(as.numeric(names(eff)),eff,lwd=2, col=col1)
-    lines(as.numeric(names(fut)),fut,lwd=2, col=col2)
-    legend("topleft",legend=c("Efficacy at Final","Cumulative Futility at Final" ),lty=1,col = c(col1,col2),cex=par()$cex*cex.legend)
+#    abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
+    points(as.numeric(names(eff)),eff,pch=4, col=col1)
+    points(as.numeric(names(fut)),fut,pch=3, col=col2)
+    legend("topleft",legend=c("Efficacy at Final","Cumulative Futility at Final" ),pch=c(4,3),col = c(col1,col2),cex=par()$cex*cex.legend)
   }
 
   class(res)="n_vs_pFstopEcall"

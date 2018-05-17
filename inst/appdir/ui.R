@@ -46,7 +46,7 @@ fluidPage(
           numericInput("cE", "cE (for efficacy criterion P(p>pE|Data) >= cE):", value=.9, min = 0, max = 1, step=.01),
           hr(),
         downloadButton("report", "Generate report"),
-        radioButtons('format', 'Document format', c( 'HTML', 'Word'), #'PDF',
+        radioButtons('format', 'Document format', c('PDF', 'HTML', 'Word'),
 inline = TRUE)
       ),
     # unten rechts

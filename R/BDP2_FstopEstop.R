@@ -1,5 +1,5 @@
-BDP2_FstopEstop=function(n, vn.int, p, pF, cF, pE, cE,
-                                       shape1F, shape2F,shape1E, shape2E){
+BDP2_FstopEstop=function(n, vn.int, p, pF=NULL, cF, pE=NULL, cE,
+                                       shape1F, shape2F,shape1E=NULL, shape2E=NULL){
   if (is.null(shape1E)) shape1E=shape1F
   if (is.null(shape2E)) shape2E=shape2F
 
