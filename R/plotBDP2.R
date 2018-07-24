@@ -1,7 +1,11 @@
 plotBDP2=function(
-                    x=c("n","ptrue","cE","cF"),
-                    y=c("Prob0Successes","PostProb0or1Successes","bFbE","PEcall_p0_p1","PEstop_p0_p1","PFstopEcall","PFstopEstop",  #if x=="n"
-                        "PEcall","PEstop","PFstop","PFstopEstop","ExpectedNumber"),   #if x in ptrue, cE, cF
+                    x=c("n","k", "ptrue","cE","cF"),
+                    y=c("Prob0Successes","PostProb0or1Successes","bFbE",
+                        "PEcall_p0_p1","PEstop_p0_p1",
+                        "PFstopEcall","PFstopEstop",  #if x=="n"
+                        "PEcall","PEstop","PFstop","PFstopEstop",
+                        "ExpectedNumber",
+                        "PredictivePower"),   #if x in ptrue, cE, cF
                     n,   #could be vector or scalar
                     interim.at,
                      ptrue, #could be vector or scalar
@@ -52,6 +56,12 @@ plotBDP2=function(
                                                    shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
                                                    col1=col[1],col2=col[2],progress=progress,cex.legend=cex.legend,show=show,...)
                ),
+         k=switch(y,
+                    PredictivePower=plotPredictivePowerVSk(n=n,vn.int=interim.at,
+                                                           pF=pF,cF=cF,pE=pE,cE=cE,
+                                                           shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,
+                                                           show=show,...)
+                  ),
          ptrue= switch(y,
                          PEcall=  plotPEcallVSptrue(n=n,vn.int=interim.at,    #vielleicht ProbCallEfficacy statt PEcall
                                                pF=pF,cF=cF,pE=pE,cE=cE,

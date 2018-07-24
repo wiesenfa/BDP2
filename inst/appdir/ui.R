@@ -119,5 +119,9 @@ inline = TRUE)
         )
 
       )
-    )
+    ),br(),br(),
+h4("Reference"),
+  h5("Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018). Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+Biometrical Journal, to appear.")
   )
