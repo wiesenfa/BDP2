@@ -15,7 +15,7 @@ The DESCRIPTION file:
 Workflow to choose design parameters single-arm trial with a binary
 endpoint (response, success) and interim efficacy and futility analyses as well as routines to determine and visualize operating characteristics.
 
-Main functions: BDP2workflow(), BDP2() and plotBDP2().
+Main functions: \code{\link{BDP2workflow}}, \code{\link{BDP2}} and \code{\link{plotBDP2}}. \code{\link{BDP2workflow}} provides an interactive shiny app which also generates Word/pdf/html reports.
 }
 \author{
 \packageAuthor{BDP2}
@@ -23,13 +23,19 @@ Main functions: BDP2workflow(), BDP2() and plotBDP2().
 Maintainer: \packageMaintainer{BDP2}
 }
 \references{
-%%~~ Literature or other references for background information ~~
+Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018).\cr Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+\emph{Biometrical Journal}, to appear.
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
-\seealso{
+%\seealso{
 %~~ Optional links to other man pages, e.g. ~~
 %~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+%}
 \examples{
+\dontrun{
+# Starts Shiny app
+  BDP2workflow()
+}
 }

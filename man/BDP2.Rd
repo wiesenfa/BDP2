@@ -1,9 +1,5 @@
 \name{BDP2}
 \alias{BDP2}
-\alias{BDP2_Fstop}
-\alias{BDP2_FstopEcall}
-\alias{BDP2_FstopEstop}
-\alias{BDP2_simulateEF_PostProb}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Operating characteristics of a single-arm trial with a binary
@@ -20,6 +16,7 @@ is at least pE , pF respectively.
 BDP2(n, interim.at, ptrue, 
       eff.stop = FALSE, 
       pF, cF, pE = NULL, cE = NULL, 
+      type="PostProb", alpha=0.05,
       shape1F, shape2F, shape1E = NULL, shape2E = NULL, 
       simulate = FALSE, nsim = 10000)
 }
@@ -41,6 +38,8 @@ BDP2(n, interim.at, ptrue,
   \item{cF}{critical level of posterior probabilities used for declaring futility }
   \item{pE}{response rate used for the efficacy criterion}
   \item{cE}{critical level of posterior probabilities used for declaring efficacy}
+  \item{type}{"PostProb" for decisions based on posterior probabilities (default) or "PredictivePower" for decisions based on predictive power (currently only implemented for \code{simulate==TRUE})}
+  \item{alpha}{significance level for final test (only for \code{simulate==TRUE & type=="PredictivePower"}) }
   \item{shape1F}{first parameter of the Beta prior for futility analysis}
   \item{shape2F}{second parameter of the Beta prior for futility analysis}
   \item{shape1E}{first parameter of the Beta prior for efficacy analysis}
@@ -54,6 +53,9 @@ Assumptions:
 Endpoint (response/no response) data available for all study patients.
 Beta-binomial model. Prior distribution = Beta(shape1, shape2).
 
+
+\subsection{Decisions based on posterior probabilities}{
+
 The posterior distribution at interim analysis with n.int  patients and k.int
 successes is Beta(k.int + shape1F, n.int + shape2F - k.int) and Beta(k.int + shape1E, n.int + shape2E - k.int), respectively.
 Efficacy is declared if the posterior probability P(true response rate > pE)
@@ -64,31 +66,48 @@ cF, cE translate into futility/efficacy boundaries (maximum number of
 responses leading to early termination for futility/ minimum number of responses
 leading to declaring of, or early termination for, efficacy).
 }
-\value{
+
+\subsection{Decisions based on predictive power}{
+Given the results of the interim analysis, the predictive power at the final analysis
+(n patients, critical number of successes k.crit) is P(X >= k.crit - k.int), where
+X  follows a beta-binomial distribution with parameters n'= n - n.int, a = k.int + shape1,
+and b = n.int - k.int + shape2.
+
+Efficacy is declared if the predictive power is >= cE (cE must be high, e.g. 0.70).
+Futility is declared if the predictive power is < cF (cF must be small, e.g. 0.10).
+cE, cF translate into futility/efficacy boundaries (maximum number of
+responses leading to early termination for futility/ minimum number of responses
+leading to declaring of, or early termination for, efficacy).
+}
+
+}
+%\value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-}
+%}
 \references{
-%% ~put references to the literature/web site here ~
+Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018).\cr Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+\emph{Biometrical Journal}, to appear.
 }
-\author{
+%\author{
 %%  ~~who you are~~
-}
-\note{
+%}
+%\note{
 %%  ~~further notes~~
-}
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
+%\seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-}
+%}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ design }% use one of  RShowDoc("KEYWORDS")
+%\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
