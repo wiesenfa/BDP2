@@ -1,0 +1,18 @@
+citEntry(
+  entry="Article",
+  title="Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach",
+  journal="Biometrical Journal",
+  volume= "to appear",
+#  number="500",
+#  pages="1286-1296",
+  year="2018",
+  author=
+  personList(as.person("Annette Kopp-Schneider"), as.person("Manuel Wiesenfarth")
+  , as.person("Witt Ruth"), as.person("Dominic Edelmann"), as.person("Olaf Witt"), as.person("Ulrich Abel")  ),
+  textVersion="Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018). 
+Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+  Biometrical Journal, to appear." )
+  
+  

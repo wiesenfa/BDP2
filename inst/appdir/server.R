@@ -1,4 +1,4 @@
-server <- function(input, output) {
+function(input, output) {
     output$ProbSuccesses <- renderPlot({
       p0=input$p0
       p1=input$p1
@@ -11,30 +11,9 @@ server <- function(input, output) {
       plotBDP2(x="n",y="Prob0Successes",n=c(n.range_1[1],n.range_1[2]),p0=p0,p1=p1)
       plotBDP2(x="n",y="PostProb0or1Successes",n=c(n.range_1[1],n.range_1[2]),pF=pF,shape1F=shape1F,shape2F=shape2F)
     })
-
-    output$cE.vs.PEcall <- renderPlot({
-      pF=input$pF
-      pE=input$pE
-      p0=input$p0
-      p1=input$p1
-      shape1F=input$shape1F
-      shape2F=input$shape2F
-      shape1E=input$shape1E
-      shape2E=input$shape2E
-
-      cF=input$cF
-      cE.range_1=as.numeric(input$cE.range_1)
-      cEaccuracy=0.001
-      cEvec=seq(from=cE.range_1[1],to=cE.range_1[2],by=cEaccuracy)
-      interims.at= c(input$firstInterim.at,as.numeric(unlist(strsplit(input$furtherInterims.at," "))))
-#     vn.int=input$firstInterim.at
-      n=input$nfinal
-
-      plotBDP2(x="cE",y="PEcall",n=n,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cEvec,p0=p0,p1=p1,
-                   shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"),cex.lab=1.4)
-    })
-
-    output$OCs.selected.cE <- renderText({
+    
+    
+    cE.vs.PEcall= reactive({
       pF=input$pF
       pE=input$pE
       p0=input$p0
@@ -53,12 +32,22 @@ server <- function(input, output) {
       n=input$nfinal
 
       res=plotBDP2(x="cE",y="PEcall",n=n,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cEvec,p0=p0,p1=p1,
-                   shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"))
+                   shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,col=c("green","red"),cex.lab=1.4,show=FALSE)
+      return(res)
+  
+    })
+    
+    
+    output$cE.vs.PEcall <- renderPlot({
+      plot.cE_vs_pEcall(cE.vs.PEcall())
+      abline(v=input$cE,col="gray",lty="dashed")
+    })
+
+    output$OCs.selected.cE <- renderText({
       cE=input$cE
-
-
-   paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],2)," at p0=",p0,
-             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],2)," at p1=",p1,".")
+      res=cE.vs.PEcall()
+      paste0("Selected cE leads to a type I error of ", round(res$y.p0[which.min(abs(res$x.p0-cE))[1]],3)," at p0=",input$p0,
+             " and a power of ",round(res$y.p1[which.min(abs(res$x.p1-cE))[1]],3)," at p1=",input$p1,".")
 
     })
 
@@ -101,7 +90,7 @@ server <- function(input, output) {
                main="Type I error and probability of true stopping for varying n",cex.lab=1.4)
       plotBDP2(x="n",y="PFstopEcall",n=nvec,interim.at=interims.at,pF=pF,cF=cF,pE=pE,cE=cE,ptrue=p1,
                          shape1F=shape1F,shape2F=shape2F,shape1E=shape1E,shape2E=shape2E,progress=T,
-               main="Power and probability of false stopping for varying n",cex.lab=1.4)
+               main="Power and probability of false stopping for varying n",cex.lab=1.4,cex.legend = 1)
     })
 
 

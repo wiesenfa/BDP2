@@ -1,7 +1,11 @@
-  ui <- fluidPage(
+library(shinyBS)
+library(BDP2)
+
+fluidPage(
     # oben  
-      titlePanel("BDP2 workflow"),
-      h3("Workflow to determine design parameters for a multi-stage single arm phase II trial with binary endpoint. Declaration of efficacy and futility is based on Bayesian posterior distribution."),
+      titlePanel(paste0("BDP2 workflow (version ",packageVersion('BDP2'),")")),
+      h3("Workflow to determine design parameters for a multi-stage single-arm phase II trial with binary endpoint. Declaration of efficacy and futility is based on Bayesian posterior distribution."),
+      h4("Annette Kopp-Schneider, Manuel Wiesenfarth, Division of Biostatistics, German Cancer Research Center (DKFZ), Heidelberg, Germany"),
       br(),
       h4("1. Common settings: Select pF, pE and the prior distribution for the response rate"),#br(),
         fluidRow(
@@ -36,7 +40,7 @@
           numericInput("firstInterim.at", "First interim at:", value=10, min = 0, step=1),
           numericInput("cF", "cF (for futility criterion P(p>pF|Data) < cF):", value=.01, min = 0, max = 1, step=.01),
           br(),
-          textInput("furtherInterims.at", "Second and potentially further interims at (seperate by blank):", value = "20"),
+          textInput("furtherInterims.at", "Second and potential further interims at (separate by blank):", value = "20"),
           hr(),
         h4("3. Select cE"),
           numericInput("cE", "cE (for efficacy criterion P(p>pE|Data) >= cE):", value=.9, min = 0, max = 1, step=.01),
@@ -53,17 +57,17 @@ inline = TRUE)
               sliderInput("n.range_1", "Range of sample sizes at first interim:", min = 0, max = 200, value = c(4,15),width = 400),
               plotOutput("ProbSuccesses"),
               h5("The left figure shows true (for ptrue=p0, in green) and false (for ptrue=p1, in red) stopping probability. 
-                 False stopping probability should be bounded to an acceptable limit, e.g. 5%. 
+                 False stopping probability should be bounded to an acceptable limit, e.g., 5%. 
                  Any n with false stopping probability below this limit can be used as timing of first interim. 
                  The actual choice may be guided by logistical considerations."),
-              h5("From right figure read P(p>pF| 0 of n), in red, and P(p>pF| 1 of n), in green, for your selected timing of first interim. 
+              h5("From the right figure read P(p>pF| 0 of n), in red, and P(p>pF| 1 of n), in green, for your selected timing of the first interim. 
                  The value of cF can be chosen anywhere between these two numbers and 
-                  will ensure that the trial is stopped at first interim if no succeses have been observed so far.
+                  will ensure that the trial is stopped at first interim if no success has been observed so far.
                  Consider the operating characteristics (tab 4), power and expected patient number (tab 5) for final decision on cF."),
-              h5("Note: If it is not intended to stop the trial only after a run of treatment failures but also in case that 
-                 a low number of successes is observed, the timing of first interim and cF can be chosen on basis of the 
+              h5("Note: If it is intended to stop the trial not only after a run of treatment failures but also in case 
+                 a low number of successes is observed, the timing of first interim and cF can be chosen on the basis of the 
                  operating characteristics (tab 4), power and expected patient number (tab 5) without evaluating these plots.",style = "color:blue"),
-              h4("2b. Timings of second and potentially further interims are selected based on logistical considerations."),
+              h4("2b. Timings of second and potential further interims are selected based on logistical considerations."),
               br()
              ),
 
@@ -109,11 +113,15 @@ inline = TRUE)
             h5("The plot shows the decision boundaries for the selected trial design in terms of number of successes per number of enrolled patients."),
             h5("The trial is stopped for futility if the observed number of successes among enrolled patients is in the red part of the plot, including the boundary."), 
             h5("Efficacy can be called if the observed number of successes among patients at final analysis is in the green part of the plot, including the boundary."),
-            h5("The range of final sample size should be increased to the maximal feasible number to check for contradictory results, i.e. for overlap between red and green areas."),
+            h5("The range of final sample size should be increased to the maximal feasible number to check for contradictory results, i.e., for overlap between red and green areas."),
             br()
           )
         )
 
       )
-    )
+    ),br(),br(),
+h4("Reference"),
+  h5("Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018). Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+Biometrical Journal, to appear.")
   )

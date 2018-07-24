@@ -29,7 +29,7 @@ crit=function (n, pThreshold,  vn.int, crit, shape1=1, shape2=1) {
 #-------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
 
-crit_general=function (n, p0, p1,  vn.int, alpha, crit, type, shape1=1 , shape2=1) {
+crit_general=function (n, p0, p1,  vn.int, alpha, crit, type=5, shape1=1 , shape2=1) {
 
   ##Calculates CritBoundaries for all 10 types of futility criteria:
   # Type 1: Predictive power.

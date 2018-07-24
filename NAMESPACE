@@ -1,7 +1,10 @@
-exportPattern("^[[:alpha:]]+")
+export("plotBDP2","BDP2workflow","BDP2",
+       "plot.cE_vs_pEcall","plot.cE_vs_pEstop",
+       "BDP2_simulate","crit_general","pFstop","pFstopEcall","pFstopEstop")
+
 importFrom("grDevices", "col2rgb", "rgb")
 importFrom("graphics", "abline", "axis", "legend", "lines", "par",
-           "plot", "polygon")
+           "plot", "polygon", "points","mtext", "title")
 importFrom("stats", "dbinom", "pbeta", "pbinom", "qbinom", "rbinom")
 importFrom("shiny", "br", "column", "downloadButton", "downloadHandler", "fluidPage", "fluidRow", "radioButtons","hr","h3","h4", "h5", "incProgress", "mainPanel", "numericInput", "plotOutput", "renderPlot", "renderText", "runApp", "shinyApp", "sidebarLayout", "sidebarPanel", "sliderInput", "tabPanel", "tabsetPanel", "textInput", "textOutput", "titlePanel", "withProgress")
 importFrom("shinyBS", "bsTooltip")
@@ -9,3 +12,5 @@ importFrom("rmarkdown", "render","pdf_document","html_document","word_document")
 
 
 
+S3method(plot, cE_vs_pEcall)
+S3method(plot, cE_vs_pEstop)

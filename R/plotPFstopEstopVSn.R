@@ -1,4 +1,4 @@
-plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col1="green",col2="red",progress=FALSE,cex.legend=1,show=TRUE,...){
+plotPFstopEstopVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NULL,shape2E=NULL,col1="green",col2="red",progress=FALSE,cex.legend=1,show=TRUE,...){
   if (is.null(shape1E)) shape1E=shape1F
   if (is.null(shape2E)) shape2E=shape2F
 
@@ -14,8 +14,8 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
       v.critF <- critEF(n=n,  vn.int=vn.int1, crit=cF, pE=pE,pF=pF,  EF="F",
                         shape1=shape1F,shape2=shape2F)
       
-      temp=pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)
-      res=c(temp$P.effic[length(vn.int1)+1],
+      temp=pFstopEstop(p,c(vn.int1,n),v.critE,v.critF)
+      res=c(temp$P.effic.cum[length(vn.int1)+1],
             temp$P.futil.cum[length(vn.int1)+1])
       res
 
@@ -29,8 +29,8 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
       v.critF <- critEF(n=n,  vn.int=vn.int1, crit=cF, pE=pE,pF=pF,  EF="F",
                         shape1=shape1F,shape2=shape2F)
       
-      temp=pFstopEcall(p,c(vn.int1,n),v.critE,v.critF)
-      res=c(temp$P.effic[length(vn.int1)+1],
+      temp=pFstopEstop(p,c(vn.int1,n),v.critE,v.critF)
+      res=c(temp$P.effic.cum[length(vn.int1)+1],
             temp$P.futil.cum[length(vn.int1)+1])
       res
 
@@ -48,12 +48,12 @@ plotPFstopEcallVSn=function(nvec,vn.int,pF,cF,pE,cE,p,shape1F,shape2F,shape1E=NU
          ylab="Probability",
          sub=paste0("Interim analyses at (",paste(vn.int,collapse=", "),"),  ptrue=",p,", pF=",pF,", cF=",cF,", pE =",pE,", cE=",cE ),
          ylim=c(0,1),xlim=c(min(nvec),max(nvec)), type="n",las=1,...)
-#    abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
-    points(as.numeric(names(eff)),eff,pch=4, col=col1)
-    points(as.numeric(names(fut)),fut,pch=3, col=col2)
-    legend("topleft",legend=c("Efficacy at Final","Cumulative Futility at Final" ),pch=c(4,3),col = c(col1,col2),cex=par()$cex*cex.legend)
+    abline(v=min(nvec):max(nvec),lty=3,lwd=1,col="grey")
+    lines(as.numeric(names(eff)),eff,lwd=2, col=col1)
+    lines(as.numeric(names(fut)),fut,lwd=2, col=col2)
+    legend("topleft",legend=c("Cumulative Efficacy at Final","Cumulative Futility at Final" ),lty=1,col = c(col1,col2),cex=par()$cex*cex.legend)
   }
 
-  class(res)="n_vs_pFstopEcall"
+  class(res)="n_vs_pFstopEstop"
   invisible(res)
 }

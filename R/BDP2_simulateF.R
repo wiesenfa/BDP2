@@ -1,4 +1,4 @@
-BDP2_simulateF=function (n, vn.int, p, p0, p1, alpha=0.05, crit, type=5, nsim,shape1=1,shape2=1) {
+BDP2_simulate=function (n, vn.int, p, p0, p1, alpha=0.05, crit, type=5, nsim,shape1=1,shape2=1) {
 
   # Determines the operating characteristics of a single-arm trial with a binary
   # endpoint (success - failure) and interim futility analyses.

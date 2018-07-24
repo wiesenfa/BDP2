@@ -3,20 +3,24 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-plot
+Plots
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Output of desired plots
 }
 \usage{
-plotBDP2(x = c("n", "ptrue", "cE", "cF"), 
+plotBDP2(x = c("n", "k", "ptrue", "cE", "cF"), 
           y = c("Prob0Successes", "PostProb0or1Successes", "bFbE", 
-                "PEcall_p0_p1", "PFstopEcall", 
-                "PEcall", "PFstop", "ExpectedNumber"), 
+                "PEcall_p0_p1", "PEstop_p0_p1", 
+                "PFstopEcall", "PFstopEstop",
+                "PEcall", "PEstop", "PFstop", "PFstopEstop", 
+                "ExpectedNumber", 
+                "PredictivePower"), 
           n, interim.at, ptrue, 
-          pF, cF, pE, cE, p0, p1, 
+          pF, cF, pE, cE, p0, p1, Estop=FALSE,
           shape1F, shape2F, shape1E = NULL, shape2E = NULL, 
-          col = c("green", "red"), add = FALSE, progress = FALSE, ...)
+          col = c("green", "red"), cex.legend=1, add = FALSE, 
+          show=TRUE, progress = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +30,7 @@ character string specifying what is given by the x axis
 \itemize{
 \item "n" for number of patients at final or at first interim, depending on plot
 \item "ptrue" for the true response rate
+\item "k" number of successes at interim (only for \code{y=="PredictivePower"})
 \item "cE" for the critical level of posterior probabilities used for declaring efficacy
 \item "cF" for the critical level of posterior probabilities used for declaring futility
 }
@@ -37,19 +42,30 @@ character string specifying what is given by the y axis
 \item "PostProb0or1Successes" generates two curves of posterior probability that reponse rate exceeds cF. One given 0 successes and one given 1 success observed in n, i.e. P(p>pF| 0 successes out of n) and P(p>pF| 1 success out of n). Choose x="n" and set n to a vector of number patients at first interim.
 \item "bFbE" for plot of boundaries for futility bF and for efficacy bE in terms of number of successes per n number of patients. Futility stop if number of successes <= bF, call efficacy if number of successes >= bE. Choose x="n" and set n to the maximal number of patients (not a vector).
 \item "PEcall_p0_p1" for plot of probability to call efficacy at final (i.e. P(p>pE|Data)>=cE ), evaluated for data generated with control response rate p0 (corresponds to type I error) and for data generated with target response rate p1 (corresponds to power) for varying number of patients at final. Choose x="n" and set n to a vector of number patients at final.
+\item "PEstop_p0_p1" as above but with stopping for efficacy instead of calling efficacy 
 \item "PFstopEcall" for plotting operating characteristics for a given response rate as a function of number of patients at final, n. Shows one curve (default: in red) for the probability of stopping for futility up to final analysis and one curve (default: in green) for the probability of calling efficacy at final analysis. For the setting ptrue=p0, the curves show the probability of true stopping (default: in red) and type I error (default: in green). For the setting ptrue=p1, the curves show the probability of false stopping (default: in red) and power (default: in green). Choose x="n" and set n to a vector of number patients at final.
+\item "PFstopEstop" as above but with stopping for efficacy instead of calling efficacy 
 \item "PEcall" for plot of probability to call efficacy at final (i.e. P(p>pE|Data)>=cE ). 
 
 \itemize{
 \item For x="ptrue" then this is the power function. 
 \item For x="cE" this gives plots of probability to call efficacy at final, evaluated for data generated with control response rate p0 (corresponds to type I error) and for data generated with target response rate p1 (corresponds to power).
 }
+\item "PEstop" 
+\itemize{
+\item For x="ptrue" then this is the power function. 
+\item For x="cE" this gives plots of probability to call efficacy at final, evaluated for data generated with control response rate p0 (corresponds to type I error) and for data generated with target response rate p1 (corresponds to power).
+}
+
+
 \item "PFstop" for plot of cumulative probability to stop for futility up to final.
 \itemize{
 \item For x="ptrue" this gives the futility stopping probability as function of ptrue. 
 \item For x="cF" this gives 2 curves, evaluated for data generated with control response rate p0 (corresponds to true stopping probability, default: in green) and for data generated with target response rate p1 (corresponds to false stopping probability, default: in red).
 }
-\item "ExpectedNumber" for expected number of patients in the trial. Choose x= "ptrue".
+\item "ExpectedNumber" for expected number of patients in the trial. Choose x= "ptrue". 
+      Takes stopping for efficacy into account if \code{Estop==TRUE}
+\item "PredictivePower" for predictive power (only for \code{x=="k"})
 }
 }
   \item{n}{sample size at the final analysis, vector if \code{x=="n"}}
@@ -65,39 +81,45 @@ character string specifying what is given by the y axis
   \item{shape2F}{second parameter of the Beta prior for futility analysis}
   \item{shape1E}{first parameter of the Beta prior for efficacy analysis}
   \item{shape2E}{second parameter of the Beta prior for efficacy analysis }
+  \item{Estop}{Stop for efficacy? Defaults to \code{FALSE}. Only relevant if \code{y=="ExpectedNumber"}. }
   \item{col}{line color, for some plots vector of length 2.}
   \item{add}{add line to existing plot. Only supported if \code{x=="ptrue"}}
+  \item{show}{show plot (otherwise computed objects are invisibly returned)}
   \item{progress}{only used by shiny app}
+  \item{cex.legend}{size of legend text relative to cex}
   \item{\dots}{additional arguments passed to \code{plot.default()}}
 }
-\details{
+%\details{
 %%  ~~ If necessary, more details than the description above ~~
-}
-\value{
+%}
+%\value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
-}
+%}
 \references{
-%% ~put references to the literature/web site here ~
+Kopp-Schneider, A., Wiesenfarth, M., Witt, R., Edelmann, D., Witt, O. and Abel, U. (2018).\cr Monitoring futility and efficacy in phase II trials with Bayesian
+posterior distributions - a calibration approach. 
+\emph{Biometrical Journal}, to appear.
 }
-\author{
+%\author{
 %%  ~~who you are~~
-}
-\note{
+%}
+%\note{
 %%  ~~further notes~~
-}
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
+%\seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+%}
 \examples{
+# See vignette
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+%\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
+%\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
