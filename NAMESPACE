@@ -14,3 +14,4 @@ importFrom("rmarkdown", "render","pdf_document","html_document","word_document")
 
 S3method(plot, cE_vs_pEcall)
 S3method(plot, cE_vs_pEstop)
+
