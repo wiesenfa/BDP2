@@ -122,8 +122,8 @@ plotBDP2(x="n",y="PostProb0or1Successes",n=c(nmin,nmax),pF=pF,shape1F=shape1F,sh
 ```
 
 # Figure 4
-Probability of calling efficacy at final analysis with $n_\text{final}=20$ patients as a function of $c_E$. Design parameters are $p_F=0.3, p_E=0.12$, prior distributions Beta($p_F,1-p_F$) and Beta($p_E,1-p_E$), $c_F=0.01$ and one interim at $10$ patients. For $p_{true}=p_0=0.12$ this corresponds to type I error, for $p_{true}=p_1=0.3$ this corresponds to power.\\
-This involves the BDP2 package which is installed from \url{https://github.com/wiesenfa/BDP2}. The package is included in the submitted folder. The package contains the function plotBDP2 for plotting various figures. 
+Probability of calling efficacy at final analysis with $n_\text{final}=20$ patients as a function of $c_E$. Design parameters are $p_F=0.3, p_E=0.12$, prior distributions Beta($p_F,1-p_F$) and Beta($p_E,1-p_E$), $c_F=0.01$ and one interim at $10$ patients. For $p_{true}=p_0=0.12$ this corresponds to type I error, for $p_{true}=p_1=0.3$ this corresponds to power.
+
 
 ```{r, Figure 4,fig.width=6}  
 n=20
