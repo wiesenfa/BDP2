@@ -122,3 +122,9 @@ are directly input by the user. crit ist the vector of these boundaries at each
 (interim or final) analysis. The study is terminated if the number of successes is
 at analysis no. m is <= the crit[m].
 }
+
+\examples{
+BDP2_simulate(n=30, vn.int=c(10,20), 
+              p=0.2, p0=0.1, p1=0.3, crit=0.1, type=5, nsim=1000,shape1=1,shape2=1)
+}
+

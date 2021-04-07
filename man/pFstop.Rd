@@ -28,3 +28,6 @@ pFstop(p, vn.int, v.crit)
 %%     ~~Describe \code{v.crit} here~~
 }
 }
+\examples{
+pFstop(p=0.3,vn.int=c(3,9,13,18,20),v.crit=c(0,1,2,3,3))
+}

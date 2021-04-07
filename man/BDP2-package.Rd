@@ -12,8 +12,12 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{BDP2}
 \packageIndices{BDP2}
-Workflow to choose design parameters single-arm trial with a binary
-endpoint (response, success) and interim efficacy and futility analyses as well as routines to determine and visualize operating characteristics.
+%Workflow to choose design parameters in a adaptive Bayesian phase II trial design in a single-arm trial with binary
+%endpoint (response, success) and interim efficacy and futility analyses as well as routines to determine and visualize operating characteristics.
+Tools and workflow to choose design parameters in Bayesian adaptive single-arm phase II trial designs with binary
+endpoint (response, success) with possible stopping for efficacy and futility at interim analyses.
+Also contains routines to determine and visualize operating characteristics.
+
 
 Main functions: \code{\link{BDP2workflow}}, \code{\link{BDP2}} and \code{\link{plotBDP2}}. \code{\link{BDP2workflow}} provides an interactive shiny app which also generates Word/pdf/html reports.
 }

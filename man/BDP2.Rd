@@ -32,7 +32,7 @@ BDP2(n, interim.at, ptrue,
     that the efficicacy criterion is satisfied (possibly triggering a
     notification of the DMC and the start of the planning of a subsequent
     trial).
-    \code{stop}: the study ends if the efficacy criterion is reached at an interim analysis.
+    \code{"stop"}: the study ends if the efficacy criterion is reached at an interim analysis.
   }
   \item{pF}{response rate used for the futility criterion (may be identical to pE)}
   \item{cF}{critical level of posterior probabilities used for declaring futility }
@@ -111,3 +111,21 @@ posterior distributions - a calibration approach.
 % R documentation directory.
 \keyword{ design }% use one of  RShowDoc("KEYWORDS")
 %\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\examples{
+# Operating characteristics with calling for efficacy
+BDP2(n=20, interim.at = c(3,9,13,18), ptrue = 0.3, 
+      eff.stop = "call",
+      pF=0.3, cF=0.01, pE=0.12, cE = 0.9, 
+      type="PostProb", 
+      shape1F=0.3, shape2F=0.7, shape1E=0.12, shape2E=0.88)
+
+# Operating characteristics with stopping for efficacy
+BDP2(n=20, interim.at = c(3,9,13,18), ptrue = 0.3, 
+      eff.stop = "stop",
+      pF=0.3, cF=0.01, pE=0.12, cE = 0.9, 
+      type="PostProb", 
+      shape1F=0.3, shape2F=0.7, shape1E=0.12, shape2E=0.88)
+
+
+
+}
