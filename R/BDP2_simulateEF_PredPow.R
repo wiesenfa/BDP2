@@ -55,7 +55,7 @@ BDP2_simulateEF_PredPow=function (n, vn.int, p, p0, p1, cF, cE, alpha, nsim, eff
 
 #--------------------------------------------------------------------------------------------
 # Input check:
-  if (p0 >= p1) stop('p1 must be > p0.')
+  if (p0 > p1) stop('p1 must be > p0.')
   if (max(vn.int) >= n) stop('Interim analyses must be performed at patient numbers < n.')
   if (is.unsorted(vn.int) == TRUE) stop('vn.int must be sorted in ascending order')
 

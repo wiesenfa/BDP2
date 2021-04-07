@@ -31,7 +31,6 @@ plotPredictivePowerVSk=function(n,vn.int,pF,cF,pE,cE,shape1F,shape2F,shape1E=NUL
   }
 
  
-
 #  class(res)="n_vs_pEcall_p0_p1"
 #  invisible(res)
 }
